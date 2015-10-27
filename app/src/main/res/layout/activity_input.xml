@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="sap.schweifer.at.tcode.InputActivity">
+
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/t_Appl"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:autoText="false"
+        android:hint="@string/ins_Appl"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/t_Code"
+        android:layout_alignTop="@+id/t_Appl"
+        android:layout_toEndOf="@+id/t_Appl"
+        android:hint="@string/ins_code"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/t_Bez"
+        android:layout_below="@+id/t_Code"
+        android:layout_alignParentStart="true"
+        android:hint="@string/ins_Bez"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/t_Bes"
+        android:gravity="top"
+        android:layout_alignEnd="@+id/t_Code"
+        android:singleLine="false"
+        android:hint="@string/ins_Bes"
+        android:layout_below="@+id/t_Bez"/>
+
+    <EditText
+        android:layout_width="80dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/t_Mod"
+        android:layout_below="@+id/t_Bes"
+        android:hint="@string/ins_Mod"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/t_Proz"
+        android:layout_alignBottom="@+id/t_Mod"
+        android:layout_toEndOf="@+id/t_Mod"
+        android:hint="@string/ins_Proz"/>
+
+</RelativeLayout>

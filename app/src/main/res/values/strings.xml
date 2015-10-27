@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Codes</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="ins_Appl">Anwendung</string>
+    <string name="ins_code">Befehl</string>
+    <string name="ins_Bez">Bezeichnung</string>
+    <string name="ins_Bes">Beschreibung</string>
+    <string name="ins_Mod">Modul</string>
+    <string name="ins_Proz">Prozess</string>
+</resources>
