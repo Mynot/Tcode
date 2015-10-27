@@ -167,4 +167,41 @@ public class TcDatabase extends SQLiteOpenHelper {
             Log.d(TAG, "insert() "+TcTables.PROCEDURES_TABLE+" "+ rowId);
         }
     }
+
+    //Daten in Tabelle Codes auslesen
+    public void readTc(String appl,
+                       String report,
+                       String bez,
+                       String bes,
+                       String mod,
+                       String proz
+    ) {
+//        long rowId = -1;
+//        try {
+//            //Datenbank öffnen
+//            SQLiteDatabase db = getWritableDatabase();
+//            Log.d(TAG, "Pfad: " + db.getPath());
+//
+//            //Daten schreiben
+//            ContentValues values = new ContentValues();
+//
+//            values.put(TcTables.TX_APPLICATION, appl);
+//            values.put(TcTables.TX_REPORT, report);
+//            values.put(TcTables.TX_BEZ, bez);
+//            values.put(TcTables.TX_BES, bes);
+//            values.put(TcTables.TX_MOD, mod);
+//            values.put(TcTables.TX_PROC, proz);
+//
+//            rowId = db.insert(TcTables.CODE_TABLE, null, values);
+//
+//        } catch (Exception e) {
+//            Log.e(TAG, "Insert() " + TcTables.CODE_TABLE, e);
+//        } finally {
+//            Log.d(TAG, "insert() " + TcTables.CODE_TABLE + " " + rowId);
+//        }
+
+    }
+
+
+
 }
