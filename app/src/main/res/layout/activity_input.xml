@@ -10,52 +10,54 @@
     <EditText
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:id="@+id/t_Appl"
+        android:id="@+id/input_Appl"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:autoText="false"
         android:hint="@string/ins_Appl"
-        />
+        android:text="SAP"
+        android:singleLine="false"
+        android:inputType="none"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/t_Code"
-        android:layout_alignTop="@+id/t_Appl"
-        android:layout_toEndOf="@+id/t_Appl"
+        android:id="@+id/input_Code"
+        android:layout_alignTop="@+id/input_Appl"
+        android:layout_toEndOf="@+id/input_Appl"
         android:hint="@string/ins_code"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/t_Bez"
-        android:layout_below="@+id/t_Code"
+        android:id="@+id/input_Bez"
+        android:layout_below="@+id/input_Code"
         android:layout_alignParentStart="true"
         android:hint="@string/ins_Bez"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:id="@+id/t_Bes"
+        android:id="@+id/input_Bes"
         android:gravity="top"
-        android:layout_alignEnd="@+id/t_Code"
+        android:layout_alignEnd="@+id/input_Code"
         android:singleLine="false"
         android:hint="@string/ins_Bes"
-        android:layout_below="@+id/t_Bez"/>
+        android:layout_below="@+id/input_Bez"/>
 
     <EditText
         android:layout_width="80dip"
         android:layout_height="wrap_content"
-        android:id="@+id/t_Mod"
-        android:layout_below="@+id/t_Bes"
+        android:id="@+id/input_Mod"
+        android:layout_below="@+id/input_Bes"
         android:hint="@string/ins_Mod"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/t_Proz"
-        android:layout_alignBottom="@+id/t_Mod"
-        android:layout_toEndOf="@+id/t_Mod"
+        android:id="@+id/input_Proz"
+        android:layout_alignBottom="@+id/input_Mod"
+        android:layout_toEndOf="@+id/input_Mod"
         android:hint="@string/ins_Proz"/>
+
 
 </RelativeLayout>

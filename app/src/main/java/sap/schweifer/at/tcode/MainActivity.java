@@ -1,17 +1,22 @@
 package sap.schweifer.at.tcode;
 
-import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
+
+import sap.schweifer.at.database.TcDatabase;
 
 public class MainActivity extends AppCompatActivity {
+
+    private CursorAdapter ca;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +33,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
          //       Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
           //              .setAction("Action", null).show();
+
+                TcDatabase db = new TcDatabase(MainActivity.this);
+
+                ListView mainlist = (ListView) findViewById(R.id.db_Einträge);
+
+                Cursor cursorListe = db.query();
+
+
             }
+
+            ;
+
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

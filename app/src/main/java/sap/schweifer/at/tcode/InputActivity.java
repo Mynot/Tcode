@@ -6,14 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import sap.schweifer.at.database.TcDatabase;
+import sap.schweifer.at.database.TcTables;
 
 public class InputActivity extends AppCompatActivity {
 
@@ -27,7 +26,7 @@ public class InputActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
+        TcDatabase db = new TcDatabase(this);
 
     }
 
@@ -50,13 +49,14 @@ public class InputActivity extends AppCompatActivity {
                 String in_Bezeichnug;
                 String in_Modul;
                 String in_Process;
+                long rowID;
 
-                EditText v_Appl = (EditText) findViewById(R.id.t_Appl);
-                EditText v_Report = (EditText) findViewById(R.id.t_Code);
-                EditText v_Beschreibung = (EditText) findViewById(R.id.t_Bes);
-                EditText v_Bezeichung = (EditText) findViewById(R.id.t_Bez);
-                EditText v_Modul = (EditText) findViewById(R.id.t_Mod);
-                EditText v_Process = (EditText) findViewById(R.id.t_Proz);
+                EditText v_Appl = (EditText) findViewById(R.id.input_Appl);
+                EditText v_Report = (EditText) findViewById(R.id.input_Code);
+                EditText v_Beschreibung = (EditText) findViewById(R.id.input_Bes);
+                EditText v_Bezeichung = (EditText) findViewById(R.id.input_Bez);
+                EditText v_Modul = (EditText) findViewById(R.id.input_Mod);
+                EditText v_Process = (EditText) findViewById(R.id.input_Proz);
 
                 in_Appl =  v_Appl.getText().toString();
                 in_Report =  v_Report.getText().toString();
@@ -67,8 +67,8 @@ public class InputActivity extends AppCompatActivity {
 
                 TcDatabase database = new TcDatabase(this);
 
-                database.insertTc(in_Appl,in_Report,in_Bezeichnug,in_Beschreibung,in_Modul,in_Process);
-
+                rowID = database.insertTc(in_Appl, in_Report, in_Bezeichnug, in_Beschreibung, in_Modul, in_Process);
+                Log.i(this.getLocalClassName(), "Datensatz ID: " + rowID + " eingefügt!");
                 return true;
 
             case R.id.action_settings:
