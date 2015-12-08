@@ -7,7 +7,7 @@ import java.io.StringReader;
  */
 public class CodeObjects {
 
-    public String ID;
+    public int ID;
     public String APPL;
     public String REPORT;
     public String BESCHREIBUNG;
@@ -15,20 +15,20 @@ public class CodeObjects {
     public String MODUL;
     public String PROCESS;
 
-    public CodeObjects (String ID,
+    public CodeObjects (int ID,
                         String Appl,
-                   String Report,
-                   String Beschreibung,
-                   String Bezeichung,
-                   String Modul,
-                   String Process){
-        this.ID = ID;
-        this.APPL = Appl;
-        this.REPORT = Report;
-        this.BESCHREIBUNG = Beschreibung;
-        this.BEZEICHNUNG = Bezeichung;
-        this.MODUL = Modul;
-        this.PROCESS= Process;
+                       String Report,
+                       String Beschreibung,
+                       String Bezeichung,
+                       String Modul,
+                       String Process){
+                            this.ID = ID;
+                            this.APPL = Appl;
+                            this.REPORT = Report;
+                            this.BESCHREIBUNG = Beschreibung;
+                            this.BEZEICHNUNG = Bezeichung;
+                            this.MODUL = Modul;
+                            this.PROCESS= Process;
     }
 
 

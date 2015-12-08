@@ -13,10 +13,12 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 
 import sap.schweifer.at.database.TcDatabase;
+import sap.schweifer.at.database.TcTables;
 
 public class MainActivity extends AppCompatActivity {
 
     private CursorAdapter ca;
+    int anzahlDatensaetze;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +33,49 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, InputActivity.class);
                 startActivity(intent);
-         //       Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-          //              .setAction("Action", null).show();
-
-                TcDatabase db = new TcDatabase(MainActivity.this);
-
-                ListView mainlist = (ListView) findViewById(R.id.db_Einträge);
-
-                Cursor cursorListe = db.query();
-
+                //       Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //              .setAction("Action", null).show();
 
             }
 
-            ;
+
 
         });
+
+        TcDatabase db = new TcDatabase(MainActivity.this);
+
+        ListView mainlist = (ListView) findViewById(R.id.db_Einträge);
+
+        Cursor cursorApplication = db.query();
+
+        anzahlDatensaetze = cursorApplication.getCount();
+
+        CodeObjects[] applItems = new CodeObjects[anzahlDatensaetze];
+
+
+        int i = 0;
+
+
+            if (cursorApplication != null&&cursorApplication.moveToFirst()){
+                while (!cursorApplication.isAfterLast()){
+                    applItems[i] = new CodeObjects(
+                            cursorApplication.getInt(cursorApplication.getColumnIndexOrThrow(TcTables.ID)),
+                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_APPLICATION)),
+                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_REPORT)),
+                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_BES)),
+                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_BEZ)),
+                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_MOD)),
+                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_PROC))
+
+                    );
+                    i = i++;
+                    cursorApplication.moveToNext();
+                }
+            }
+
+
+
+
     }
 
 
