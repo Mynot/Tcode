@@ -1,7 +1,5 @@
 package sap.schweifer.at.tcode;
 
-import java.io.StringReader;
-
 /**
  * Created by sschweif on 20.10.2015.
  */
@@ -23,12 +21,12 @@ public class CodeObjects {
                        String Modul,
                        String Process){
                             this.ID = ID;
-                            this.APPL = Appl;
-                            this.REPORT = Report;
-                            this.BESCHREIBUNG = Beschreibung;
-                            this.BEZEICHNUNG = Bezeichung;
-                            this.MODUL = Modul;
-                            this.PROCESS= Process;
+                            APPL = Appl;
+                            REPORT = Report;
+                            BESCHREIBUNG = Beschreibung;
+                            BEZEICHNUNG = Bezeichung;
+                            MODUL = Modul;
+                            PROCESS= Process;
     }
 
 
