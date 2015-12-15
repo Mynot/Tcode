@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,8 @@ import sap.schweifer.at.database.TcDatabase;
 import sap.schweifer.at.database.TcTables;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private CursorAdapter ca;
     int anzahlDatensaetze;
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         anzahlDatensaetze = cursorApplication.getCount();
 
         CodeObjects[] applItems = new CodeObjects[anzahlDatensaetze];
-
+        Log.i(TAG,"Es sind "+anzahlDatensaetze+" gespeichert!");
 
         int i = 0;
 
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     cursorApplication.moveToNext();
                 }
             }
-
+            Log.i(TAG,"Es sind "+i+" Datensätze im Array!");
 
 
 
