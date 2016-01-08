@@ -17,11 +17,12 @@ import sap.schweifer.at.database.TcDatabase;
 import sap.schweifer.at.database.TcTables;
 
 public class MainActivity extends AppCompatActivity {
-
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private CursorAdapter ca;
-    int anzahlDatensaetze;
+    private int anzahlDatensaetze;
+    public CodeObjects[] applItems = null;
+    public ArrayAdapterItem mainItemAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, InputActivity.class);
+                Intent intent = new Intent(getApplicationContext(), InputActivity.class);
                 startActivity(intent);
                 //       Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 //              .setAction("Action", null).show();
@@ -42,45 +43,77 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-
         });
 
-        TcDatabase db = new TcDatabase(MainActivity.this);
 
-        ListView mainlist = (ListView) findViewById(R.id.db_Einträge);
+        insertDbObjects();
 
-        Cursor cursorApplication = db.query();
-
-        anzahlDatensaetze = cursorApplication.getCount();
-
-        CodeObjects[] applItems = new CodeObjects[anzahlDatensaetze];
-        Log.i(TAG,"Es sind "+anzahlDatensaetze+" gespeichert!");
-
-        int i = 0;
-
-
-            if (cursorApplication != null&&cursorApplication.moveToFirst()){
-                while (!cursorApplication.isAfterLast()){
-                    applItems[i] = new CodeObjects(
-                            cursorApplication.getInt(cursorApplication.getColumnIndexOrThrow(TcTables.ID)),
-                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_APPLICATION)),
-                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_REPORT)),
-                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_BES)),
-                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_BEZ)),
-                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_MOD)),
-                            cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_PROC))
-
-                    );
-                    i = i++;
-                    cursorApplication.moveToNext();
-                }
-            }
-            Log.i(TAG,"Es sind "+i+" Datensätze im Array!");
 
 
 
     }
 
+    public void insertDbObjects() {
+
+        TcDatabase db = new TcDatabase(getApplicationContext());
+
+        Cursor cursorApplication = db.query();
+
+        anzahlDatensaetze = cursorApplication.getCount();
+
+        applItems = new CodeObjects[anzahlDatensaetze];
+
+        int arrayLength = 0;
+
+        arrayLength = applItems.length;
+
+        Log.i(TAG, "Es sind " + anzahlDatensaetze + " gespeichert!");
+
+        int i = 0;
+
+
+        if (cursorApplication != null && cursorApplication.moveToFirst() &&
+                anzahlDatensaetze != arrayLength
+            ) {
+            while (!cursorApplication.isAfterLast()) {
+                applItems[i] = new CodeObjects(
+                        cursorApplication.getInt(cursorApplication.getColumnIndexOrThrow(TcTables.ID)),
+                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_APPLICATION)),
+                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_REPORT)),
+                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_BES)),
+                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_BEZ)),
+                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_MOD)),
+                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_PROC))
+
+                );
+                i = ++i;
+                Log.i(TAG, "Es sind " + i + " Datensätze im Array!");
+                cursorApplication.moveToNext();
+
+
+            }
+        }
+
+
+
+        ArrayAdapterItem mainItemAdapter = new ArrayAdapterItem(this, R.layout.rel_datenbankeintrag, applItems);
+
+
+        ListView list_Datenbankeintraege = (ListView) findViewById(R.id.lv_Datenbankeinträge);
+
+        list_Datenbankeintraege.setAdapter(mainItemAdapter);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        insertDbObjects();
+
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

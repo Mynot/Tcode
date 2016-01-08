@@ -17,14 +17,12 @@ public class TcDatabase extends SQLiteOpenHelper {
     public static final String TcDBName = "tCode.db";
 
 
-
     public TcDatabase(Context context) {
         super(context, TcDBName, null, TcVersion);
     }
 
 
-
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.execSQL(TcTables.CREATE_TABLE_TC);
         db.execSQL(TcTables.CREATE_TABLE_APPL);
         db.execSQL(TcTables.CREATE_TABLE_REPO);
@@ -33,7 +31,7 @@ public class TcDatabase extends SQLiteOpenHelper {
     }
 
 
-    public void onUpgrade(SQLiteDatabase db,int oldVersion, int newVersion){
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(TAG, "Neue Datenbankversion " + newVersion + " alle Daten von Version " + oldVersion + " werden gelöscht!");
         db.execSQL(TcTables.DROP_TABLE_APPL);
         db.execSQL(TcTables.DROP_TABLE_CODE);
@@ -44,12 +42,12 @@ public class TcDatabase extends SQLiteOpenHelper {
 
     //Daten in Tabelle Codes schreiben
     public long insertTc(String appl,
-                        String report,
-                        String bez,
-                        String bes,
-                        String mod,
-                        String proz
-                        ){
+                         String report,
+                         String bez,
+                         String bes,
+                         String mod,
+                         String proz
+    ) {
         long rowId = -1;
         try {
             //Datenbank öffnen
@@ -59,30 +57,26 @@ public class TcDatabase extends SQLiteOpenHelper {
             //Daten schreiben
             ContentValues values = new ContentValues();
 
-            values.put(TcTables.TX_APPLICATION,appl);
-            values.put(TcTables.TX_REPORT,report);
-            values.put(TcTables.TX_BEZ,bez);
-            values.put(TcTables.TX_BES,bes);
+            values.put(TcTables.TX_APPLICATION, appl);
+            values.put(TcTables.TX_REPORT, report);
+            values.put(TcTables.TX_BEZ, bez);
+            values.put(TcTables.TX_BES, bes);
             values.put(TcTables.TX_MOD, mod);
-            values.put(TcTables.TX_PROC,proz);
+            values.put(TcTables.TX_PROC, proz);
 
-            rowId = db.insert(TcTables.CODE_TABLE,null,values);
+            rowId = db.insert(TcTables.CODE_TABLE, null, values);
 
 
         } catch (Exception e) {
-            Log.e(TAG,"Insert() "+TcTables.CODE_TABLE, e );
+            Log.e(TAG, "Insert() " + TcTables.CODE_TABLE, e);
         } finally {
-            Log.d(TAG, "insert() "+TcTables.CODE_TABLE+" "+ rowId);
+            Log.d(TAG, "insert() " + TcTables.CODE_TABLE + " " + rowId);
         }
         return rowId;
     }
 
 
-
-
-
-    public void insertApplication (String application)
-    {
+    public void insertApplication(String application) {
         long rowId = -1;
         try {
             //Datenbank öffnen
@@ -92,19 +86,18 @@ public class TcDatabase extends SQLiteOpenHelper {
             //Daten schreiben
             ContentValues values = new ContentValues();
 
-            values.put(TcTables.TX_APPLICATION,application);
+            values.put(TcTables.TX_APPLICATION, application);
 
-            rowId = db.insert(TcTables.APPLICATION_TABLE,null,values);
+            rowId = db.insert(TcTables.APPLICATION_TABLE, null, values);
 
         } catch (Exception e) {
-            Log.e(TAG,"Insert() "+TcTables.APPLICATION_TABLE, e );
+            Log.e(TAG, "Insert() " + TcTables.APPLICATION_TABLE, e);
         } finally {
-            Log.d(TAG, "insert() "+TcTables.APPLICATION_TABLE+" "+ rowId);
+            Log.d(TAG, "insert() " + TcTables.APPLICATION_TABLE + " " + rowId);
         }
     }
 
-    public void insertReport (String report)
-    {
+    public void insertReport(String report) {
         long rowId = -1;
         try {
             //Datenbank öffnen
@@ -114,20 +107,19 @@ public class TcDatabase extends SQLiteOpenHelper {
             //Daten schreiben
             ContentValues values = new ContentValues();
 
-            values.put(TcTables.TX_REPORT,report);
+            values.put(TcTables.TX_REPORT, report);
 
-            rowId = db.insert(TcTables.REPORT_TABLE,null,values);
+            rowId = db.insert(TcTables.REPORT_TABLE, null, values);
 
         } catch (Exception e) {
-            Log.e(TAG,"Insert() "+TcTables.REPORT_TABLE, e );
+            Log.e(TAG, "Insert() " + TcTables.REPORT_TABLE, e);
         } finally {
-            Log.d(TAG, "insert() "+TcTables.REPORT_TABLE+" "+ rowId);
+            Log.d(TAG, "insert() " + TcTables.REPORT_TABLE + " " + rowId);
         }
 
     }
 
-    public void insertModul (String modul)
-    {
+    public void insertModul(String modul) {
         long rowId = -1;
         try {
             //Datenbank öffnen
@@ -137,14 +129,14 @@ public class TcDatabase extends SQLiteOpenHelper {
             //Daten schreiben
             ContentValues values = new ContentValues();
 
-            values.put(TcTables.TX_MOD,modul);
+            values.put(TcTables.TX_MOD, modul);
 
-            rowId = db.insert(TcTables.MODUL_TABLE,null,values);
+            rowId = db.insert(TcTables.MODUL_TABLE, null, values);
 
         } catch (Exception e) {
-            Log.e(TAG,"Insert() "+TcTables.MODUL_TABLE, e );
+            Log.e(TAG, "Insert() " + TcTables.MODUL_TABLE, e);
         } finally {
-            Log.d(TAG, "insert() "+TcTables.MODUL_TABLE+" "+ rowId);
+            Log.d(TAG, "insert() " + TcTables.MODUL_TABLE + " " + rowId);
         }
     }
 //
@@ -170,7 +162,7 @@ public class TcDatabase extends SQLiteOpenHelper {
 //        }
 //    }
 
-    //Daten in Tabelle Codes auslesen
+    //Daten aus Tabelle Codes auslesen
     public Cursor query() {
 
         //Datenbank öffnen
@@ -180,12 +172,12 @@ public class TcDatabase extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                null, TcTables.TX_REPORT + "DESC");
+                null, TcTables.TX_REPORT + " DESC");
 
 
     }
 
-    //Daten in Tabelle Applications auslesen
+    //Daten aus Tabelle Applications auslesen
     public Cursor queryAPPL() {
 
         //Datenbank öffnen
@@ -196,7 +188,7 @@ public class TcDatabase extends SQLiteOpenHelper {
                     null,
                     null,
                     null,
-                    null, TcTables.TX_APPLICATION + "DESC");
+                    null, TcTables.TX_APPLICATION + " DESC");
         } catch (Exception e) {
             Log.e(TAG, "query" + TcTables.APPLICATION_TABLE + "keine Daten!");
             return null;
@@ -207,7 +199,6 @@ public class TcDatabase extends SQLiteOpenHelper {
 
 
     }
-
 
 
 }

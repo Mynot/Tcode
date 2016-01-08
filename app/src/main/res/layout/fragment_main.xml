@@ -10,7 +10,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="473dp"
-        android:id="@+id/db_Einträge"
+        android:id="@+id/lv_Datenbankeinträge"
         android:layout_gravity="center_horizontal|top"/>
 
     <TextView

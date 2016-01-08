@@ -6,16 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import sap.schweifer.at.database.TcDatabase;
-import sap.schweifer.at.database.TcTables;
 
 public class InputActivity extends AppCompatActivity {
 
+    private CursorAdapter ca;
+    private int anzahlDatensaetze;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class InputActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //return super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_input,menu);
+        getMenuInflater().inflate(R.menu.menu_input, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -58,18 +58,23 @@ public class InputActivity extends AppCompatActivity {
                 EditText v_Modul = (EditText) findViewById(R.id.input_Mod);
                 EditText v_Process = (EditText) findViewById(R.id.input_Proz);
 
-                in_Appl =  v_Appl.getText().toString();
-                in_Report =  v_Report.getText().toString();
-                in_Beschreibung =  v_Beschreibung.getText().toString();
-                in_Bezeichnug =  v_Bezeichung.getText().toString();
-                in_Modul =  v_Modul.getText().toString();
-                in_Process =  v_Process.getText().toString();
+                in_Appl = v_Appl.getText().toString();
+                in_Report = v_Report.getText().toString().toUpperCase();
+                in_Beschreibung = v_Beschreibung.getText().toString();
+                in_Bezeichnug = v_Bezeichung.getText().toString();
+                in_Modul = v_Modul.getText().toString().toUpperCase();
+                in_Process = v_Process.getText().toString();
 
                 TcDatabase database = new TcDatabase(this);
 
                 rowID = database.insertTc(in_Appl, in_Report, in_Bezeichnug, in_Beschreibung, in_Modul, in_Process);
                 Log.i(this.getLocalClassName(), "Datensatz ID: " + rowID + " eingefügt!");
+
+
+                this.finish();
+
                 return true;
+
 
             case R.id.action_settings:
                 return true;
@@ -85,4 +90,8 @@ public class InputActivity extends AppCompatActivity {
         }
 
     }
+
+
+
+
 }

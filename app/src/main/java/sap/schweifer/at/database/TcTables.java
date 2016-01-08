@@ -4,7 +4,7 @@ package sap.schweifer.at.database;
  * Created by sschweif on 13.10.2015.
  */
 public class TcTables {
-
+    private static final String TAG = TcTables.class.getSimpleName();
 
     //Datenbank Tabellen
 
@@ -25,30 +25,30 @@ public class TcTables {
 
     //Datenbank Tabelle CODE anlegen
     public static final String CREATE_TABLE_TC = "CREATE TABLE " + CODE_TABLE + " (" +
-            ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            TX_APPLICATION + "TEXT NOT NULL, " +
-            TX_REPORT + "TEXT NOT NULL, " +
-            TX_BEZ + "TEXT NOT NULL, " +
-            TX_BES + "TEXT, " +
-            TX_MOD + "TEXT NOT NULL, " +
-            TX_PROC + "TEXT NOT NULL)";
+            ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TX_APPLICATION + " TEXT NOT NULL, " +
+            TX_REPORT + " TEXT UNIQUE NOT NULL, " +
+            TX_BEZ + " TEXT NOT NULL, " +
+            TX_BES + " TEXT, " +
+            TX_MOD + " TEXT NOT NULL, " +
+            TX_PROC + " TEXT NOT NULL)";
 
     // Tabelle Anwendungen anlegen
     public static final String CREATE_TABLE_APPL = "CREATE TABLE " + APPLICATION_TABLE + " (" +
-            ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            TX_APPLICATION + "TEXT NOT NULL)" ;
+            ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TX_APPLICATION + " TEXT NOT NULL)" ;
 
     // Tabelle Reports anlegen
     public static final String CREATE_TABLE_REPO = "CREATE TABLE " + REPORT_TABLE + " (" +
-            ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            TX_APPLICATION + "TEXT NOT NULL, " +
-            TX_REPORT + "TEXT NOT NULL)" ;
+            ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TX_APPLICATION + " TEXT NOT NULL, " +
+            TX_REPORT + " TEXT NOT NULL)" ;
 
     // Tabelle Anwendungen anlegen
     public static final String CREATE_TABLE_MOD = "CREATE TABLE " + MODUL_TABLE + " (" +
-            ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            TX_APPLICATION + "TEXT NOT NULL, " +
-            TX_MOD + "TEXT NOT NULL)" ;
+            ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TX_APPLICATION + " TEXT NOT NULL, " +
+            TX_MOD + " TEXT NOT NULL)" ;
 
 //    // Tabelle Anwendungen anlegen
 //    public static final String CREATE_TABLE_PROC = "CREATE TABLE " + PROCEDURES_TABLE + " (" +
@@ -56,10 +56,10 @@ public class TcTables {
 //            TX_PROC + "TEXT NOT NULL)" ;
 
     //Datenbank Tabelle löschen
-    public static final String DROP_TABLE_CODE = "DROP TABLE IF EXISTS" + CODE_TABLE;
-    public static final String DROP_TABLE_APPL = "DROP TABLE IF EXISTS" + APPLICATION_TABLE ;
-    public static final String DROP_TABLE_REPO = "DROP TABLE IF EXISTS" + REPORT_TABLE;
-    public static final String DROP_TABLE_MOD = "DROP TABLE IF EXISTS" + MODUL_TABLE;
+    public static final String DROP_TABLE_CODE = "DROP TABLE IF EXISTS " + CODE_TABLE;
+    public static final String DROP_TABLE_APPL = "DROP TABLE IF EXISTS " + APPLICATION_TABLE ;
+    public static final String DROP_TABLE_REPO = "DROP TABLE IF EXISTS " + REPORT_TABLE;
+    public static final String DROP_TABLE_MOD = "DROP TABLE IF EXISTS " + MODUL_TABLE;
 //    public static final String DROP_TABLE_PROC = "DROP TABLE IF EXISTS" + PROCEDURES_TABLE;
 
 }

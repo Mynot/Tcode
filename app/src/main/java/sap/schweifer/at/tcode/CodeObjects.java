@@ -5,6 +5,12 @@ package sap.schweifer.at.tcode;
  */
 public class CodeObjects {
 
+
+    private static final String TAG = CodeObjects.class.getSimpleName();
+
+
+
+
     public int ID;
     public String APPL;
     public String REPORT;
@@ -12,6 +18,7 @@ public class CodeObjects {
     public String BEZEICHNUNG;
     public String MODUL;
     public String PROCESS;
+
 
     public CodeObjects (int ID,
                         String Appl,
@@ -28,7 +35,6 @@ public class CodeObjects {
                             MODUL = Modul;
                             PROCESS= Process;
     }
-
 
 
 

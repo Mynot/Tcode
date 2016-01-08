@@ -10,4 +10,5 @@ public class ObjectsController {
     private CursorAdapter ca;
 
 
+
 }
