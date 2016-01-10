@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapterItem mainItemAdapter = new ArrayAdapterItem(this, R.layout.rel_datenbankeintrag, applItems);
 
+//        SimpleCursorAdapter test = new SimpleCursorAdapter(this,R.layout.rel_datenbankeintrag,cursorApplication, );
 
         ListView list_Datenbankeintraege = (ListView) findViewById(R.id.lv_Datenbankeinträge);
 
