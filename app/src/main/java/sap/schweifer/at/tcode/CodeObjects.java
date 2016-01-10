@@ -9,8 +9,6 @@ public class CodeObjects {
     private static final String TAG = CodeObjects.class.getSimpleName();
 
 
-
-
     public int ID;
     public String APPL;
     public String REPORT;
@@ -20,22 +18,21 @@ public class CodeObjects {
     public String PROCESS;
 
 
-    public CodeObjects (int ID,
-                        String Appl,
+    public CodeObjects(int ID,
+                       String Appl,
                        String Report,
                        String Beschreibung,
                        String Bezeichung,
                        String Modul,
-                       String Process){
+                       String Process) {
                             this.ID = ID;
-                            APPL = Appl;
-                            REPORT = Report;
-                            BESCHREIBUNG = Beschreibung;
-                            BEZEICHNUNG = Bezeichung;
-                            MODUL = Modul;
-                            PROCESS= Process;
+        this.APPL = Appl;
+        this.REPORT = Report;
+        this.BESCHREIBUNG = Beschreibung;
+        this.BEZEICHNUNG = Bezeichung;
+        this.MODUL = Modul;
+        this.PROCESS = Process;
     }
-
 
 
 }

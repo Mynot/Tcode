@@ -63,18 +63,16 @@ public class MainActivity extends AppCompatActivity {
 
         applItems = new CodeObjects[anzahlDatensaetze];
 
-        int arrayLength = 0;
-
-        arrayLength = applItems.length;
+//        int arrayLength = 0;
+//
+//        arrayLength = applItems.length;
 
         Log.i(TAG, "Es sind " + anzahlDatensaetze + " gespeichert!");
 
         int i = 0;
 
 
-        if (cursorApplication != null && cursorApplication.moveToFirst() &&
-                anzahlDatensaetze != arrayLength
-            ) {
+        if (cursorApplication != null && cursorApplication.moveToFirst()) {
             while (!cursorApplication.isAfterLast()) {
                 applItems[i] = new CodeObjects(
                         cursorApplication.getInt(cursorApplication.getColumnIndexOrThrow(TcTables.ID)),
@@ -95,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-        ArrayAdapterItem mainItemAdapter = new ArrayAdapterItem(this, R.layout.rel_datenbankeintrag, applItems);
+        mainItemAdapter = new ArrayAdapterItem(this, R.layout.rel_datenbankeintrag, applItems);
 
 //        SimpleCursorAdapter test = new SimpleCursorAdapter(this,R.layout.rel_datenbankeintrag,cursorApplication, );
 
