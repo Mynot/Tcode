@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import sap.schweifer.at.database.TcDatabase;
 
@@ -24,6 +23,8 @@ public class InputActivity extends AppCompatActivity {
         Log.i(this.getLocalClassName(), "Activity gestartet");
 
         ActionBar actionBar = getSupportActionBar();
+
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         TcDatabase db = new TcDatabase(this);
@@ -81,8 +82,8 @@ public class InputActivity extends AppCompatActivity {
 
             case android.R.id.home:
                 this.finish();
-                Toast.makeText(this, item.getTitle() + "finish", Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(this, item.getTitle() + "finish", Toast.LENGTH_SHORT)
+//                        .show();
                 Log.i(this.getLocalClassName(), "Activity finish");
                 return true;
             default:

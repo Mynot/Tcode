@@ -8,10 +8,11 @@
     <string name="ins_Bes">Beschreibung</string>
     <string name="ins_Mod">Modul</string>
     <string name="ins_Proz">Prozess</string>
-    <string name="txt_Bezeichung">Bezeichung</string>
-    <string name="txt_Code">Code</string>
-    <string name="txt_Applikation">Applikation</string>
-    <string name="txt_Beschreibung">Beschreibung</string>
-    <string name="txt_Modul">Modul</string>
-    <string name="txt_Prozess">Prozess</string>
+
+    <string name="txt_strBezeichung">Bezeichung</string>
+    <string name="txt_strCode">Code</string>
+    <string name="txt_strApplikation">Applikation</string>
+    <string name="txt_strBeschreibung">Beschreibung</string>
+    <string name="txt_strModul">Modul</string>
+    <string name="txt_strProzess">Prozess</string>
 </resources>

@@ -1,56 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:id="@+id/rel_Datensatz">
 
-    <TextView
-        android:layout_width="100dip"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txt_Applikation"
-        android:id="@+id/txt_Appl"
+        android:id="@+id/relativeLayout"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignBottom="@+id/relativeLayout2">
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_Code"
-        android:id="@+id/txt_Code"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/txt_Appl"
-        android:textStyle="bold"/>
+        <TextView
+            android:layout_width="80dip"
+            android:layout_height="fill_parent"
+            android:text="@string/txt_strApplikation"
+            android:id="@+id/txt_Appl"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/abc_text_size_large_material"/>
+    </RelativeLayout>
 
-    <TextView
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txt_Beschreibung"
-        android:id="@+id/txt_Beschreibung"
-        android:layout_below="@+id/txt_Appl"
-        android:layout_alignParentStart="true"/>
+        android:layout_toEndOf="@+id/relativeLayout"
+        android:id="@+id/relativeLayout2">
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_Modul"
-        android:id="@+id/txt_Modul"
-        android:layout_below="@+id/txt_Beschreibung"
-        android:layout_alignParentStart="true"/>
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_strCode"
+            android:id="@+id/txt_Code"
+            android:textStyle="bold"
+            android:shadowColor="#080808"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"/>
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_Prozess"
-        android:id="@+id/txt_Prozess"
-        android:layout_below="@+id/txt_Beschreibung"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/txt_Modul"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_strBeschreibung"
+            android:id="@+id/txt_Beschreibung"
+            android:layout_below="@+id/txt_Code"
+            android:layout_alignEnd="@+id/txt_Bezeichnung"/>
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_Bezeichung"
-        android:id="@+id/txt_Bezeichnung"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/txt_Prozess"
-        android:layout_toEndOf="@+id/txt_Code"/>
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_strModul"
+            android:id="@+id/txt_Modul"
+            android:layout_below="@+id/txt_Beschreibung"
+            android:layout_toStartOf="@+id/txt_Prozess"
+            android:layout_alignBottom="@+id/txt_Prozess"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_strProzess"
+            android:id="@+id/txt_Prozess"
+            android:layout_below="@+id/txt_Beschreibung"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/txt_Code"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_strBezeichung"
+            android:id="@+id/txt_Bezeichnung"
+            android:layout_alignParentTop="true"
+            android:layout_alignEnd="@+id/txt_Prozess"
+            android:layout_toEndOf="@+id/txt_Code"/>
+    </RelativeLayout>
+
 </RelativeLayout>
