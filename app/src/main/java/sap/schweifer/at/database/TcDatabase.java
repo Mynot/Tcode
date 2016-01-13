@@ -163,17 +163,17 @@ public class TcDatabase extends SQLiteOpenHelper {
 //    }
 
     //Daten aus Tabelle Codes auslesen
-    public Cursor query() {
+    public Cursor query(String search_Appl) {
 
         //Datenbank öffnen
         SQLiteDatabase db = getWritableDatabase();
         return db.query(TcTables.CODE_TABLE,
                 null,
+                TcTables.TX_APPLICATION + " =? ",
+                new String[]{search_Appl},
                 null,
                 null,
-                null,
-                null, TcTables.TX_REPORT + " DESC");
-
+                TcTables.TX_APPLICATION + ", " + TcTables.TX_MOD + ", " + TcTables.TX_PROC + " ASC");
 
     }
 

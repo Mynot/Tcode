@@ -44,7 +44,9 @@ public class InputActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.tc_save:
 
-                String in_Appl;
+                MainActivity getAppl = new MainActivity();
+
+                String in_Appl = getAppl.getSelApplication();
                 String in_Report;
                 String in_Beschreibung;
                 String in_Bezeichnug;
@@ -53,13 +55,15 @@ public class InputActivity extends AppCompatActivity {
                 long rowID;
 
                 EditText v_Appl = (EditText) findViewById(R.id.input_Appl);
+                v_Appl.setText(in_Appl);
+
                 EditText v_Report = (EditText) findViewById(R.id.input_Code);
                 EditText v_Beschreibung = (EditText) findViewById(R.id.input_Bes);
                 EditText v_Bezeichung = (EditText) findViewById(R.id.input_Bez);
                 EditText v_Modul = (EditText) findViewById(R.id.input_Mod);
                 EditText v_Process = (EditText) findViewById(R.id.input_Proz);
 
-                in_Appl = v_Appl.getText().toString();
+
                 in_Report = v_Report.getText().toString().toUpperCase();
                 in_Beschreibung = v_Beschreibung.getText().toString();
                 in_Bezeichnug = v_Bezeichung.getText().toString();

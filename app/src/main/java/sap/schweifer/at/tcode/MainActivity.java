@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
     private int anzahlDatensaetze;
 
 
-    private String selApplication;
+    private String selApplication = "SAP";
 
     public CodeObjects[] applItems = null;
     public SimpleCursorAdapter mainItemAdapter = null;
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
 
         TcDatabase db = new TcDatabase(getApplicationContext());
 
-        Cursor cursorApplication = db.query();
+        Cursor cursorApplication = db.query(getSelApplication());
 
         anzahlDatensaetze = cursorApplication.getCount();
 
@@ -118,10 +118,10 @@ public class MainActivity extends AppCompatActivity
 
         Log.i(TAG, "Es sind " + anzahlDatensaetze + " gespeichert!");
 
-        cursorApplication.moveToFirst();
-        setSelApplication(
-                cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_APPLICATION))
-        );
+//        cursorApplication.moveToFirst();
+//        setSelApplication(
+//                cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_APPLICATION))
+//        );
         TextView txtApplicationHead = (TextView) findViewById(R.id.txt_Head_Appl);
 
         txtApplicationHead.setText(getSelApplication());
