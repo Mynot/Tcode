@@ -16,7 +16,7 @@ public class InputActivity extends AppCompatActivity {
     static final String TAG = InputActivity.class.getSimpleName();
 
     private CursorAdapter ca;
-    private int anzahlDatensaetze;
+
     private String in_Appl;
 
     @Override
