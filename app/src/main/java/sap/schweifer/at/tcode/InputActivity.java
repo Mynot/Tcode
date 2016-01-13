@@ -8,13 +8,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import sap.schweifer.at.database.TcDatabase;
 
 public class InputActivity extends AppCompatActivity {
+    static final String TAG = InputActivity.class.getSimpleName();
 
     private CursorAdapter ca;
     private int anzahlDatensaetze;
+    private String in_Appl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,14 @@ public class InputActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        MainActivity getAppl = new MainActivity();
 
+        in_Appl = getAppl.getSelApplication();
+        Log.d(TAG, "onOptionsItemSelected: " + in_Appl);
+
+        TextView v_Appl = (TextView) findViewById(R.id.input_Appl);
+        Log.d(TAG, "onOptionsItemSelected: " + v_Appl);
+        v_Appl.setText(in_Appl);
 
     }
 
@@ -44,9 +54,7 @@ public class InputActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.tc_save:
 
-                MainActivity getAppl = new MainActivity();
 
-                String in_Appl = getAppl.getSelApplication();
                 String in_Report;
                 String in_Beschreibung;
                 String in_Bezeichnug;
@@ -54,8 +62,6 @@ public class InputActivity extends AppCompatActivity {
                 String in_Process;
                 long rowID;
 
-                EditText v_Appl = (EditText) findViewById(R.id.input_Appl);
-                v_Appl.setText(in_Appl);
 
                 EditText v_Report = (EditText) findViewById(R.id.input_Code);
                 EditText v_Beschreibung = (EditText) findViewById(R.id.input_Bes);
