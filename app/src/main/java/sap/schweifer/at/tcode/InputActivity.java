@@ -27,7 +27,7 @@ public class InputActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        TcDatabase db = new TcDatabase(this);
+
 
     }
 
@@ -71,7 +71,7 @@ public class InputActivity extends AppCompatActivity {
                 rowID = database.insertTc(in_Appl, in_Report, in_Bezeichnug, in_Beschreibung, in_Modul, in_Process);
                 Log.i(this.getLocalClassName(), "Datensatz ID: " + rowID + " eingefügt!");
 
-
+                database.close();
                 this.finish();
 
                 return true;

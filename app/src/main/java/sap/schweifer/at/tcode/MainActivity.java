@@ -5,6 +5,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,6 +18,7 @@ import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -22,11 +27,16 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import sap.schweifer.at.database.TcDatabase;
 import sap.schweifer.at.database.TcTables;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private CursorAdapter ca;
     private int anzahlDatensaetze;
+
+
+    private String selApplication;
+
     public CodeObjects[] applItems = null;
     public SimpleCursorAdapter mainItemAdapter = null;
     /**
@@ -35,10 +45,19 @@ public class MainActivity extends AppCompatActivity {
      */
     private GoogleApiClient client;
 
+    public String getSelApplication() {
+        return selApplication;
+    }
+
+    public void setSelApplication(String selApplication) {
+        this.selApplication = selApplication;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_navigation);
+        //activity_main
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         insertDbObjects();
 
@@ -63,6 +90,16 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public void insertDbObjects() {
@@ -81,6 +118,14 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i(TAG, "Es sind " + anzahlDatensaetze + " gespeichert!");
 
+        cursorApplication.moveToFirst();
+        setSelApplication(
+                cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_APPLICATION))
+        );
+        TextView txtApplicationHead = (TextView) findViewById(R.id.txt_Head_Appl);
+
+        txtApplicationHead.setText(getSelApplication());
+
 //        int i = 0;
 //
 //
@@ -88,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 //            while (!cursorApplication.isAfterLast()) {
 //                applItems[i] = new CodeObjects(
 //                        cursorApplication.getInt(cursorApplication.getColumnIndexOrThrow(TcTables.ID)),
-//                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_APPLICATION)),
+//                        ,
 //                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_REPORT)),
 //                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_BES)),
 //                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_BEZ)),
@@ -112,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.rel_datenbankeintrag,
                 cursorApplication,
                 new String[]{
-                        TcTables.TX_APPLICATION,
                         TcTables.TX_REPORT,
                         TcTables.TX_BEZ,
                         TcTables.TX_BES,
@@ -120,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
                         TcTables.TX_PROC},
                 new int[]
                         {
-                                R.id.txt_Appl,
                                 R.id.txt_Code,
                                 R.id.txt_Bezeichnung,
                                 R.id.txt_Beschreibung,
@@ -206,5 +249,28 @@ public class MainActivity extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

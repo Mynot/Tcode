@@ -43,9 +43,9 @@ public class ArrayAdapterItem extends ArrayAdapter<CodeObjects> {
         CodeObjects objectItem = applItems[position];
 
         // get the TextView and then set the text (item name) and tag (item ID) values
-        TextView textViewAppl = (TextView) convertView.findViewById(R.id.txt_Appl);
-        textViewAppl.setText(objectItem.APPL);
-        textViewAppl.setTag(objectItem.ID);
+//        TextView textViewAppl = (TextView) convertView.findViewById(R.id.txt_Appl);
+//        textViewAppl.setText(objectItem.APPL);
+//        textViewAppl.setTag(objectItem.ID);
 
         TextView textViewCode = (TextView) convertView.findViewById(R.id.txt_Code);
         textViewCode.setText(objectItem.REPORT);

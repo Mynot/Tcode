@@ -15,4 +15,12 @@
     <string name="txt_strBeschreibung">Beschreibung</string>
     <string name="txt_strModul">Modul</string>
     <string name="txt_strProzess">Prozess</string>
+    <string name="title_activity_main_navigation">MainNavigation</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="txt_Navigation">Transaktionen und Anweisungen</string>
+    <string name="txt_Entwickler">stefan.schweifer@gmail.com</string>
+    <string name="pic_transaktions_Codes">Transaktion Codes</string>
+    <string name="txt_Head_Appl">Ausgählte Applikation</string>
 </resources>
