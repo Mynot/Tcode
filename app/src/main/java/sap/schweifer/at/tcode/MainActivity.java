@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -27,22 +28,37 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import sap.schweifer.at.database.TcDatabase;
 import sap.schweifer.at.database.TcTables;
 
+/**
+ * Main Klasse für die Anzeige von Transaktionen in Form eine List Views.
+ * Durch das tippen auf ein Element des Listviews wird die Activity zum bearbeiten eines Datensatzes aufgerufen.
+ * Das klicken auf den Floating Action point ruft die Activity zum hinzufügen von Daten auf
+ */
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private CursorAdapter ca;
+    //private CursorAdapter ca;
     private int anzahlDatensaetze;
 
 
     private String selApplication = "SAP";
 
-    public CodeObjects[] applItems = null;
+    //  Adapter initialisieren
     public SimpleCursorAdapter mainItemAdapter = null;
+    //  Datenbank initialisieren
+    TcDatabase db = null;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
+//  Main List View initialisieren
+    ListView list_Datenbankeintraege = null;
+
+    //  Textview Hauptansicht Überschrift initialiseren
+    TextView txtApplicationHead = null;
+
     private GoogleApiClient client;
 
     public String getSelApplication() {
@@ -84,7 +100,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        insertDbObjects();
+
+//        List View wird generiert und mit Daten gefüllt
+        loadView();
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -102,55 +120,21 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void insertDbObjects() {
+    public void loadView() {
 
-        TcDatabase db = new TcDatabase(getApplicationContext());
+        db = new TcDatabase(getApplicationContext());
 
-        Cursor cursorApplication = db.query(getSelApplication());
+        final Cursor cursorApplication = db.query(getSelApplication());
 
         anzahlDatensaetze = cursorApplication.getCount();
 
-        applItems = new CodeObjects[anzahlDatensaetze];
-
-//        int arrayLength = 0;
-//
-//        arrayLength = applItems.length;
 
         Log.i(TAG, "Es sind " + anzahlDatensaetze + " gespeichert!");
 
-//        cursorApplication.moveToFirst();
-//        setSelApplication(
-//                cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_APPLICATION))
-//        );
-        TextView txtApplicationHead = (TextView) findViewById(R.id.txt_Head_Appl);
+
+        txtApplicationHead = (TextView) findViewById(R.id.txt_Head_Appl);
 
         txtApplicationHead.setText(getSelApplication());
-
-//        int i = 0;
-//
-//
-//        if (cursorApplication != null && cursorApplication.moveToFirst()) {
-//            while (!cursorApplication.isAfterLast()) {
-//                applItems[i] = new CodeObjects(
-//                        cursorApplication.getInt(cursorApplication.getColumnIndexOrThrow(TcTables.ID)),
-//                        ,
-//                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_REPORT)),
-//                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_BES)),
-//                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_BEZ)),
-//                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_MOD)),
-//                        cursorApplication.getString(cursorApplication.getColumnIndex(TcTables.TX_PROC))
-//
-//                );
-//                i = ++i;
-//                Log.i(TAG, "Es sind " + i + " Datensätze im Array!");
-//                cursorApplication.moveToNext();
-//
-//
-//            }
-//        }
-//
-//
-//        mainItemAdapter = new ArrayAdapterItem(this, R.layout.rel_datenbankeintrag, applItems);
 
 
         mainItemAdapter = new SimpleCursorAdapter(this,
@@ -174,9 +158,36 @@ public class MainActivity extends AppCompatActivity
         );
 
 
-        ListView list_Datenbankeintraege = (ListView) findViewById(R.id.lv_Datenbankeinträge);
+        list_Datenbankeintraege = (ListView) findViewById(R.id.lv_Datenbankeinträge);
+
 
         list_Datenbankeintraege.setAdapter(mainItemAdapter);
+
+        // TODO: 24.01.2016 onItemclicklistener auslagern
+        list_Datenbankeintraege.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+//              Cursor des Adapters aufrufen
+                Cursor cursor = mainItemAdapter.getCursor();
+//              Zur position des Cursors springen
+                cursor.moveToPosition(position);
+//              ID des Datensatzes ermitteln
+                int codeID = cursor.getInt(cursor.getColumnIndex(TcTables.ID));
+
+                Log.d(TAG, "onItemClick: " + codeID);
+
+                //Intent erzeugen
+                Intent updateCode = new Intent(getApplicationContext(), UpdateActivity.class);
+                //Intent ID zuweisen
+                updateCode.putExtra("cID", codeID);
+                cursor.close();
+                //Activity starten
+                startActivity(updateCode);
+
+
+            }
+        });
 
 
     }
@@ -184,7 +195,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        insertDbObjects();
+        loadView();
 
 
     }
@@ -235,6 +246,8 @@ public class MainActivity extends AppCompatActivity
     public void onStop() {
         super.onStop();
 
+        db.close();
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
@@ -257,17 +270,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
+//        if (id == R.id.nav_camera) {
+//            // Handle the camera action
+//        } else if (id == R.id.nav_gallery) {
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

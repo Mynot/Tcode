@@ -162,6 +162,47 @@ public class TcDatabase extends SQLiteOpenHelper {
 //        }
 //    }
 
+    //Daten in Tabelle Codes aktualisieren
+    public long updateTc(int ID,
+                         String report,
+                         String bez,
+                         String bes,
+                         String mod,
+                         String proz
+    ) {
+        long rowId = -1;
+        try {
+            //Datenbank öffnen
+            SQLiteDatabase db = getWritableDatabase();
+            Log.d(TAG, "Pfad: " + db.getPath());
+
+            //Daten aktualisieren
+            // TODO: 14.01.2016 Daten aus View mit ID aus Tag auslesen
+
+            ContentValues values = new ContentValues();
+
+
+            values.put(TcTables.TX_REPORT, report);
+            values.put(TcTables.TX_BEZ, bez);
+            values.put(TcTables.TX_BES, bes);
+            values.put(TcTables.TX_MOD, mod);
+            values.put(TcTables.TX_PROC, proz);
+
+
+            rowId = db.update(TcTables.CODE_TABLE,
+                    values,
+                    TcTables.ID + "=?",
+                    new String[]{String.valueOf(ID)});
+
+        } catch (Exception e) {
+            Log.e(TAG, "update() " + TcTables.CODE_TABLE, e);
+        } finally {
+            Log.d(TAG, "update() " + TcTables.CODE_TABLE + " " + rowId);
+        }
+        return rowId;
+    }
+
+
     //Daten aus Tabelle Codes auslesen
     public Cursor query(String search_Appl) {
 
@@ -173,12 +214,36 @@ public class TcDatabase extends SQLiteOpenHelper {
                 new String[]{search_Appl},
                 null,
                 null,
-                TcTables.TX_APPLICATION + ", " + TcTables.TX_MOD + ", " + TcTables.TX_PROC + " ASC");
+                TcTables.TX_APPLICATION + ", "
+                        + TcTables.TX_REPORT + ", "
+                        + TcTables.TX_PROC + ", " + TcTables.TX_MOD + " ASC");
+
+    }
+
+    //Daten aus Tabelle Codes auslesen
+    public Cursor queryDatasetAppl(String searchID) {
+
+        try {
+            //Datenbank öffnen
+            SQLiteDatabase db = getWritableDatabase();
+            return db.query(TcTables.CODE_TABLE,
+                    null,
+                    TcTables.ID + " =? ",
+                    new String[]{searchID},
+                    null,
+                    null,
+                    null);
+        } catch (Exception e) {
+            Log.e(TAG, "queryDatasetAppl: " + TcTables.ID + " " + searchID + " Fehler!");
+            return null;
+        } finally {
+            Log.i(TAG, "queryDatasetAppl: " + TcTables.ID + " " + searchID + " Erfolg!");
+        }
 
     }
 
     //Daten aus Tabelle Applications auslesen
-    public Cursor queryAPPL() {
+    public Cursor queryAPPL(int in_ID) {
 
         //Datenbank öffnen
         try {
@@ -197,6 +262,25 @@ public class TcDatabase extends SQLiteOpenHelper {
 //            return null;
         }
 
+
+    }
+
+    //Daten aus Tabelle Codes löschen
+    public int deleteDataset(String searchID) {
+
+        try {
+            //Datenbank öffnen
+            SQLiteDatabase db = getWritableDatabase();
+            return db.delete(TcTables.CODE_TABLE,
+                    TcTables.ID + " =? ",
+                    new String[]{searchID}
+            );
+        } catch (Exception e) {
+            Log.e(TAG, "queryDatasetAppl: " + TcTables.ID + " " + searchID + " Fehler!");
+            return 0;
+        } finally {
+            Log.i(TAG, "queryDatasetAppl: " + TcTables.ID + " " + searchID + " Erfolg!");
+        }
 
     }
 
