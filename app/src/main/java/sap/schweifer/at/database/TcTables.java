@@ -12,7 +12,7 @@ public class TcTables {
     public static final String APPLICATION_TABLE = "tAppl";
     public static final String REPORT_TABLE = "tRepo";
     public static final String MODUL_TABLE = "tMod";
-//    public static final String PROCEDURES_TABLE = "tProc";
+    public static final String PROCEDURES_TABLE = "tProc";
 
     // Datenbank Felder
     public static final String ID = "_id";
@@ -36,30 +36,31 @@ public class TcTables {
     // Tabelle Anwendungen anlegen
     public static final String CREATE_TABLE_APPL = "CREATE TABLE " + APPLICATION_TABLE + " (" +
             ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            TX_APPLICATION + " TEXT NOT NULL)" ;
+            TX_APPLICATION + " TEXT UNIQUE NOT NULL)";
 
     // Tabelle Reports anlegen
     public static final String CREATE_TABLE_REPO = "CREATE TABLE " + REPORT_TABLE + " (" +
             ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TX_APPLICATION + " TEXT NOT NULL, " +
-            TX_REPORT + " TEXT NOT NULL)" ;
+            TX_REPORT + " TEXT UNIQUE NOT NULL)";
 
-    // Tabelle Anwendungen anlegen
+    // Tabelle Module anlegen
     public static final String CREATE_TABLE_MOD = "CREATE TABLE " + MODUL_TABLE + " (" +
             ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TX_APPLICATION + " TEXT NOT NULL, " +
-            TX_MOD + " TEXT NOT NULL)" ;
+            TX_MOD + " TEXT UNIQUE NOT NULL)";
 
-//    // Tabelle Anwendungen anlegen
-//    public static final String CREATE_TABLE_PROC = "CREATE TABLE " + PROCEDURES_TABLE + " (" +
-//            ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
-//            TX_PROC + "TEXT NOT NULL)" ;
+    // Tabelle Prozesse anlegen
+    public static final String CREATE_TABLE_PROC = "CREATE TABLE " + PROCEDURES_TABLE + " (" +
+            ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TX_APPLICATION + " TEXT NOT NULL, " +
+            TX_PROC + " TEXT UNIQUE NOT NULL)";
 
     //Datenbank Tabelle löschen
     public static final String DROP_TABLE_CODE = "DROP TABLE IF EXISTS " + CODE_TABLE;
     public static final String DROP_TABLE_APPL = "DROP TABLE IF EXISTS " + APPLICATION_TABLE ;
     public static final String DROP_TABLE_REPO = "DROP TABLE IF EXISTS " + REPORT_TABLE;
     public static final String DROP_TABLE_MOD = "DROP TABLE IF EXISTS " + MODUL_TABLE;
-//    public static final String DROP_TABLE_PROC = "DROP TABLE IF EXISTS" + PROCEDURES_TABLE;
+    public static final String DROP_TABLE_PROC = "DROP TABLE IF EXISTS " + PROCEDURES_TABLE;
 
 }

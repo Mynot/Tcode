@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
       <item
             android:id="@+id/tc_save" android:title="speichern"
-            android:icon="@drawable/ic_save_black_18dp"
+          android:icon="@drawable/ic_save_white_24dp"
             android:orderInCategory="1"
             app:showAsAction="always"/>
 

@@ -3,9 +3,12 @@ package sap.schweifer.at.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import sap.schweifer.at.tcode.R;
 
 /**
  * Created by Stefan on 12.10.2015.
@@ -27,7 +30,7 @@ public class TcDatabase extends SQLiteOpenHelper {
         db.execSQL(TcTables.CREATE_TABLE_APPL);
         db.execSQL(TcTables.CREATE_TABLE_REPO);
         db.execSQL(TcTables.CREATE_TABLE_MOD);
-//        db.execSQL(TcTables.CREATE_TABLE_PROC);
+        db.execSQL(TcTables.CREATE_TABLE_PROC);
     }
 
 
@@ -37,7 +40,7 @@ public class TcDatabase extends SQLiteOpenHelper {
         db.execSQL(TcTables.DROP_TABLE_CODE);
         db.execSQL(TcTables.DROP_TABLE_REPO);
         db.execSQL(TcTables.DROP_TABLE_MOD);
-//        db.execSQL(TcTables.DROP_TABLE_PROC);
+        db.execSQL(TcTables.DROP_TABLE_PROC);
     }
 
     //Daten in Tabelle Codes schreiben
@@ -66,9 +69,10 @@ public class TcDatabase extends SQLiteOpenHelper {
 
             rowId = db.insert(TcTables.CODE_TABLE, null, values);
 
-
         } catch (Exception e) {
-            Log.e(TAG, "Insert() " + TcTables.CODE_TABLE, e);
+
+            Log.d(TAG, R.string.txt_Dataset_already_exists + " | " + e);
+
         } finally {
             Log.d(TAG, "insert() " + TcTables.CODE_TABLE + " " + rowId);
         }
@@ -76,7 +80,7 @@ public class TcDatabase extends SQLiteOpenHelper {
     }
 
 
-    public void insertApplication(String application) {
+    public long insertApplication(String application) {
         long rowId = -1;
         try {
             //Datenbank öffnen
@@ -90,11 +94,12 @@ public class TcDatabase extends SQLiteOpenHelper {
 
             rowId = db.insert(TcTables.APPLICATION_TABLE, null, values);
 
-        } catch (Exception e) {
+        } catch (SQLiteConstraintException e) {
             Log.e(TAG, "Insert() " + TcTables.APPLICATION_TABLE, e);
         } finally {
             Log.d(TAG, "insert() " + TcTables.APPLICATION_TABLE + " " + rowId);
         }
+        return rowId;
     }
 
     public void insertReport(String report) {
@@ -119,7 +124,7 @@ public class TcDatabase extends SQLiteOpenHelper {
 
     }
 
-    public void insertModul(String modul) {
+    public long insertModul(String modul, String appl) {
         long rowId = -1;
         try {
             //Datenbank öffnen
@@ -130,37 +135,43 @@ public class TcDatabase extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
 
             values.put(TcTables.TX_MOD, modul);
+            values.put(TcTables.TX_APPLICATION, appl);
 
             rowId = db.insert(TcTables.MODUL_TABLE, null, values);
 
         } catch (Exception e) {
             Log.e(TAG, "Insert() " + TcTables.MODUL_TABLE, e);
+            return 0;
         } finally {
             Log.d(TAG, "insert() " + TcTables.MODUL_TABLE + " " + rowId);
+            return rowId;
         }
     }
-//
-//    public void insertProcess (String process)
-//    {
-//        long rowId = -1;
-//        try {
-//            //Datenbank öffnen
-//            SQLiteDatabase db = getWritableDatabase();
-//            Log.d(TAG, "Pfad: " + db.getPath());
-//
-//            //Daten schreiben
-//            ContentValues values = new ContentValues();
-//
-//            values.put(TcTables.TX_PROC,process);
-//
-//            rowId = db.insert(TcTables.PROCEDURES_TABLE,null,values);
-//
-//        } catch (Exception e) {
-//            Log.e(TAG,"Insert() "+TcTables.PROCEDURES_TABLE, e );
-//        } finally {
-//            Log.d(TAG, "insert() "+TcTables.PROCEDURES_TABLE+" "+ rowId);
-//        }
-//    }
+
+    public long insertProcess(String process, String appl) {
+        long rowId = -1;
+        try {
+            //Datenbank öffnen
+            SQLiteDatabase db = getWritableDatabase();
+            Log.d(TAG, "Pfad: " + db.getPath());
+
+            //Daten schreiben
+            ContentValues values = new ContentValues();
+
+            values.put(TcTables.TX_PROC, process);
+            values.put(TcTables.TX_APPLICATION, appl);
+
+            rowId = db.insert(TcTables.PROCEDURES_TABLE, null, values);
+
+        } catch (Exception e) {
+            Log.e(TAG, "Insert() " + TcTables.PROCEDURES_TABLE, e);
+            return 0;
+        } finally {
+            Log.d(TAG, "insert() " + TcTables.PROCEDURES_TABLE + " " + rowId);
+            return rowId;
+        }
+
+    }
 
     //Daten in Tabelle Codes aktualisieren
     public long updateTc(int ID,
@@ -196,27 +207,38 @@ public class TcDatabase extends SQLiteOpenHelper {
 
         } catch (Exception e) {
             Log.e(TAG, "update() " + TcTables.CODE_TABLE, e);
+            return 0;
         } finally {
             Log.d(TAG, "update() " + TcTables.CODE_TABLE + " " + rowId);
+            return rowId;
         }
-        return rowId;
+
     }
 
 
     //Daten aus Tabelle Codes auslesen
-    public Cursor query(String search_Appl) {
+    public Cursor query(String searchAppl, String searchProc) {
 
-        //Datenbank öffnen
-        SQLiteDatabase db = getWritableDatabase();
-        return db.query(TcTables.CODE_TABLE,
-                null,
-                TcTables.TX_APPLICATION + " =? ",
-                new String[]{search_Appl},
-                null,
-                null,
-                TcTables.TX_APPLICATION + ", "
-                        + TcTables.TX_REPORT + ", "
-                        + TcTables.TX_PROC + ", " + TcTables.TX_MOD + " ASC");
+        try {
+            //Datenbank öffnen
+            SQLiteDatabase db = getWritableDatabase();
+            return db.query(TcTables.CODE_TABLE,
+                    null,
+                    TcTables.TX_APPLICATION + " =? and " + TcTables.TX_REPORT + " LIKE ? ",
+                    new String[]{searchAppl, searchProc + "%"},
+                    null,
+                    null,
+                    TcTables.TX_APPLICATION + ", "
+                            + TcTables.TX_REPORT + ", "
+                            + TcTables.TX_PROC + ", " + TcTables.TX_MOD + " ASC");
+        } catch (Exception e) {
+            Log.e(TAG, "query: " + TcTables.CODE_TABLE + e + " " + " Fehler!");
+
+            return null;
+
+        } finally {
+            Log.i(TAG, "query: " + TcTables.CODE_TABLE + " " + " Erfolg!");
+        }
 
     }
 
@@ -234,16 +256,17 @@ public class TcDatabase extends SQLiteOpenHelper {
                     null,
                     null);
         } catch (Exception e) {
-            Log.e(TAG, "queryDatasetAppl: " + TcTables.ID + " " + searchID + " Fehler!");
+            Log.e(TAG, "queryDatasetAppl: " + TcTables.CODE_TABLE + e + " " + searchID + " Fehler!");
             return null;
         } finally {
-            Log.i(TAG, "queryDatasetAppl: " + TcTables.ID + " " + searchID + " Erfolg!");
+            Log.i(TAG, "queryDatasetAppl: " + TcTables.CODE_TABLE + " " + searchID + " Erfolg!");
         }
 
     }
 
+
     //Daten aus Tabelle Applications auslesen
-    public Cursor queryAPPL(int in_ID) {
+    public Cursor queryAPPL() {
 
         //Datenbank öffnen
         try {
@@ -255,13 +278,107 @@ public class TcDatabase extends SQLiteOpenHelper {
                     null,
                     null, TcTables.TX_APPLICATION + " DESC");
         } catch (Exception e) {
-            Log.e(TAG, "query" + TcTables.APPLICATION_TABLE + "keine Daten!");
+            Log.e(TAG, "queryAPPL" + TcTables.APPLICATION_TABLE + "keine Daten!", e);
             return null;
         } finally {
-            Log.i(TAG, "query" + TcTables.APPLICATION_TABLE + "erfolgreich!");
+            Log.i(TAG, "queryAPPL" + TcTables.APPLICATION_TABLE + "erfolgreich!");
 //            return null;
         }
 
+
+    }
+
+    //Daten aus Tabelle Prozeduren auslesen
+    public Cursor queryProc(String l_appl) {
+
+        try {
+            //Datenbank öffnen
+            SQLiteDatabase db = getWritableDatabase();
+
+            return db.query(TcTables.PROCEDURES_TABLE,
+                    null,
+                    TcTables.TX_APPLICATION + " =? ",
+                    new String[]{l_appl},
+                    null,
+                    null,
+                    null);
+        } catch (Exception e) {
+            Log.e(TAG, "queryProc: " + TcTables.PROCEDURES_TABLE + e + " " + " Fehler Z301!", e);
+            return null;
+        } finally {
+            Log.i(TAG, "queryProc: " + TcTables.PROCEDURES_TABLE + " " + " Erfolg!");
+        }
+
+    }
+
+    //Daten aus Tabelle Prozeduren auslesen
+    public Cursor queryProcRaw() {
+
+        try {
+            //Datenbank öffnen
+            SQLiteDatabase db = getWritableDatabase();
+
+            return db.rawQuery("SELECT 0 , XXX , Prozedur ",
+
+//                    "SELECT 0 as " + TcTables.ID + ", XXX AS " + TcTables.TX_APPLICATION + ", Prozedur AS " + TcTables.TX_PROC,
+//                            " UNION" +
+//                            " SELECT " + TcTables.ID + ", " + TcTables.TX_APPLICATION + ", " + TcTables.TX_PROC +
+//                            " from " + TcTables.PROCEDURES_TABLE,
+                    null);
+        } catch (Exception e) {
+            Log.e(TAG, "queryProc: " + TcTables.PROCEDURES_TABLE + e + " " + " Fehler Z301!", e);
+            return null;
+        } finally {
+            Log.i(TAG, "queryProc: " + TcTables.PROCEDURES_TABLE + " " + " Erfolg!");
+        }
+
+    }
+
+
+    //Daten aus Tabelle Prozeduren auslesen
+    public Cursor queryModul(String l_appl) {
+
+        try {
+            //Datenbank öffnen
+            SQLiteDatabase db = getWritableDatabase();
+
+
+            return db.query(TcTables.MODUL_TABLE,
+                    null,
+                    TcTables.TX_APPLICATION + " =? ",
+                    new String[]{l_appl},
+                    null,
+                    null,
+                    null);
+        } catch (Exception e) {
+            Log.e(TAG, "queryProc: " + TcTables.MODUL_TABLE + e + " " + " Fehler!");
+            return null;
+        } finally {
+            Log.i(TAG, "queryProc: " + TcTables.MODUL_TABLE + " " + " Erfolg!");
+        }
+
+    }
+
+
+    //Datensatz aus Tabelle Prozeduren auslesen
+    public Cursor queryProcSet(String searchProc) {
+
+        try {
+            //Datenbank öffnen
+            SQLiteDatabase db = getWritableDatabase();
+            return db.query(TcTables.PROCEDURES_TABLE,
+                    new String[]{TcTables.TX_PROC},
+                    TcTables.TX_PROC + " =? ",
+                    new String[]{searchProc},
+                    null,
+                    null,
+                    null);
+        } catch (Exception e) {
+            Log.e(TAG, "queryProcSet: " + TcTables.TX_PROC + " " + " Fehler!");
+            return null;
+        } finally {
+            Log.i(TAG, "queryProcSet: " + TcTables.TX_PROC + " " + " Erfolg!");
+        }
 
     }
 
@@ -276,10 +393,10 @@ public class TcDatabase extends SQLiteOpenHelper {
                     new String[]{searchID}
             );
         } catch (Exception e) {
-            Log.e(TAG, "queryDatasetAppl: " + TcTables.ID + " " + searchID + " Fehler!");
+            Log.e(TAG, "deleteDataset: " + TcTables.CODE_TABLE + e + " " + searchID + " Fehler Z 343!");
             return 0;
         } finally {
-            Log.i(TAG, "queryDatasetAppl: " + TcTables.ID + " " + searchID + " Erfolg!");
+            Log.i(TAG, "deleteDataset: " + TcTables.CODE_TABLE + " " + searchID + " erfolgreich gelöscht!");
         }
 
     }

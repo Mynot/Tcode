@@ -24,5 +24,16 @@
     <string name="txt_Navigation">Transaktionen und Anweisungen</string>
     <string name="txt_Entwickler">stefan.schweifer@gmail.com</string>
     <string name="pic_transaktions_Codes">Transaktion Codes</string>
-    <string name="txt_Head_Appl">Ausgählte Applikation</string>
+    <string name="txt_Head_Appl">Keine Daten!</string>
+    <string name="txt_insert_item">Neuen Wert eingeben</string>
+    <string name="txt_select_Appl">Anwendung auswählen</string>
+    <string name="txt_Title_insert_item">Einfügen</string>
+    <string name="txt_keine_Anwendung_ausgewählt">Keine Anwendung ausgewählt!</string>
+
+    <string name="btn_negative">Nein</string>
+    <string name="btn_positive">Ja</string>
+    <string name="btn_abbruch">Abbruch</string>
+    <string name="txt_Search">Suche</string>
+    <string name="txt_Dataset_already_exists">Datensatz bereits vorhanden!</string>
+    <string name="txt_Dataset_inserted">Datensatz eingefügt!</string>
 </resources>
