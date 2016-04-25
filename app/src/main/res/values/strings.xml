@@ -11,6 +11,10 @@
     <string name="ins_Mod">Modul</string>
     <string name="ins_Proz">Prozess</string>
 
+    <string name="item_Appl_select">Anwendung auswählen</string>
+    <string name="item_Appl_insert">Anwendung einfügen</string>
+    <string name="item_Appl_delete">Anwendung löschen</string>
+
     <string name="txt_strBezeichung">Bezeichung</string>
     <string name="txt_strCode">Code</string>
     <string name="txt_strApplikation">Applikation</string>
@@ -25,7 +29,7 @@
     <string name="txt_Entwickler">stefan.schweifer@gmail.com</string>
     <string name="pic_transaktions_Codes">Transaktion Codes</string>
     <string name="txt_Head_Appl">Keine Daten!</string>
-    <string name="txt_insert_item">Neuen Wert eingeben</string>
+    <string name="txt_insert_item">Neuen Wert eingeben!</string>
     <string name="txt_select_Appl">Anwendung auswählen</string>
     <string name="txt_Title_insert_item">Einfügen</string>
     <string name="txt_keine_Anwendung_ausgewählt">Keine Anwendung ausgewählt!</string>

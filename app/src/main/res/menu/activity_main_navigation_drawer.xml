@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<group android:checkableBehavior="single">-->
+    <!--&lt;!&ndash;<item&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/nav_camera"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:icon="@drawable/ic_menu_camera"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:title="Import"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/nav_gallery"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:icon="@drawable/ic_menu_gallery"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:title="Gallery"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/nav_slideshow"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:icon="@drawable/ic_menu_slideshow"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:title="Slideshow"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/nav_manage"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:icon="@drawable/ic_menu_manage"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:title="Tools"/>&ndash;&gt;-->
+    <!--</group>-->
+    <item android:title="@string/ins_Appl">
+        <menu>
+            <item
+                android:id="@+id/nav_select_appl"
+                android:icon="@drawable/ic_check_circle_black_18dp"
+                android:title="@string/item_Appl_select" />
+            <item
+                android:id="@+id/nav_new_appl"
+                android:icon="@drawable/ic_library_add_black_18dp"
+                android:title="@string/item_Appl_insert" />
+            <item
+                android:id="@+id/nav_del_appl"
+                android:icon="@drawable/ic_delete_black_18dp"
+                android:title="@string/item_Appl_delete" />
+        </menu>
+    </item>
+
+    <item android:title="@string/txt_Search">
+        <menu>
+            <item
+                android:id="@+id/nav_search"
+                android:icon="@drawable/ic_search_black_18dp"
+                android:title="@string/txt_Search" />
+        </menu>
+    </item>
+
+</menu>

@@ -11,9 +11,93 @@
     tools:context="sap.schweifer.at.tcode.InputActivity">
 
 
-<include layout="@layout/content_input">
+    <include layout="@layout/content_input">
 
     </include>
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:id="@+id/view_input_Code">-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/input_Code"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="@string/ins_code" />-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/view_input_Bes"-->
+    <!--android:layout_below="@+id/view_input_Bez"-->
+    <!--android:layout_alignParentStart="true">-->
+    <!--<EditText-->
+    <!--android:id="@+id/input_Bes"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:gravity="top"-->
+    <!--android:hint="@string/ins_Bes"-->
+    <!--android:singleLine="false"-->
+    <!--android:layout_below="@+id/view_input_Bes"-->
+    <!--android:layout_alignParentEnd="true" />-->
+
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/view_input_Bez"-->
+    <!--android:layout_below="@+id/view_input_Code"-->
+    <!--android:layout_alignParentStart="true">-->
+    <!--<EditText-->
+    <!--android:id="@+id/input_Bez"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="@string/ins_Bez"-->
+    <!--android:layout_below="@+id/view_input_Code"-->
+    <!--android:layout_alignParentEnd="true" />-->
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+    <!--<Spinner-->
+    <!--android:id="@+id/input_Mod"-->
+    <!--android:layout_width="80dip"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="@string/ins_Mod"-->
+    <!--android:layout_below="@+id/view_input_Bes"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:layout_alignBottom="@+id/but_proz_add" />-->
+
+    <!--<ImageButton-->
+    <!--android:id="@+id/but_mod_add"-->
+    <!--style="@style/Base.Widget.AppCompat.Button.Borderless"-->
+    <!--android:layout_width="50dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/ic_add_circle_outline_black_18dp"-->
+    <!--android:layout_alignTop="@+id/input_Mod"-->
+    <!--android:layout_toStartOf="@+id/input_Proz" />-->
+
+
+    <!--<Spinner-->
+    <!--android:id="@+id/input_Proz"-->
+    <!--android:layout_width="150dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="@string/ins_Proz"-->
+    <!--android:layout_alignTop="@+id/but_mod_add"-->
+    <!--android:layout_toStartOf="@+id/but_proz_add"-->
+    <!--android:layout_alignBottom="@+id/but_mod_add" />-->
+
+    <!--<ImageButton-->
+    <!--android:id="@+id/but_proz_add"-->
+    <!--style="@style/Base.Widget.AppCompat.Button.Borderless"-->
+    <!--android:layout_width="50dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/ic_add_circle_outline_black_18dp"-->
+    <!--android:layout_below="@+id/view_input_Bes"-->
+    <!--android:layout_alignEnd="@+id/view_input_Bes" />-->
 
 
 </RelativeLayout>

@@ -3,22 +3,22 @@
     android:id="@+id/rel_Datensatz"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/listview_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/listview_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin">
 
 
     <TextView
-        android:id="@+id/txt_Code"
+        android:id="@+id/txt_Report"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:paddingRight="0dp"
         android:text="@string/txt_strCode"
         android:textStyle="bold"
-        android:layout_toEndOf="@+id/txt_leading_letter_procedure"
-        android:paddingLeft="@dimen/activity_horizontal_margin" />
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/frameLayout" />
 
     <TextView
         android:id="@+id/txt_Bezeichnung"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/txt_Prozess"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/txt_Code"
+        android:layout_toEndOf="@+id/txt_Report"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:text="@string/txt_strBezeichung"
         android:textStyle="bold"
@@ -39,7 +39,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:text="@string/txt_strBeschreibung"
         android:layout_below="@+id/txt_Modul"
-        android:layout_toEndOf="@+id/txt_leading_letter_procedure"
+        android:layout_toEndOf="@+id/frameLayout"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:nestedScrollingEnabled="true"
         android:maxLength="31" />
@@ -49,9 +49,9 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text="@string/txt_strModul"
-        android:layout_below="@+id/txt_Code"
-        android:layout_toEndOf="@+id/txt_leading_letter_procedure"
-        android:paddingLeft="@dimen/activity_horizontal_margin" />
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/txt_Report"
+        android:layout_toEndOf="@+id/frameLayout" />
 
     <TextView
         android:id="@+id/txt_Prozess"
@@ -61,35 +61,48 @@
         android:text="@string/txt_strProzess"
         android:layout_above="@+id/txt_Beschreibung"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/txt_Modul"
+        android:layout_toEndOf="@+id/txt_Report"
         android:maxLength="18" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/imgleadingLetterReport"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_toStartOf="@+id/txt_Report"-->
+    <!--android:layout_alignBottom="@+id/txt_Beschreibung"-->
+    <!--android:src="@drawable/ic_circle_48dp"-->
+    <!--android:layout_alignParentLeft="false" />-->
+    <LinearLayout
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:orientation="horizontal"
+        android:id="@+id/frameLayout"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/txt_Code"
-        android:layout_alignBottom="@+id/txt_Beschreibung"
-        android:src="@drawable/ic_circle_48dp"
-        android:layout_alignParentLeft="false" />
-
+        android:measureAllChildren="false"
+        android:nestedScrollingEnabled="false"
+        android:layout_centerHorizontal="true"
+        android:measureWithLargestChild="false"
+        android:gravity="clip_vertical"
+        android:layout_alignTop="@+id/txt_Report"
+        android:padding="@dimen/abc_control_padding_material">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_leading_letter_procedure"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/txt_leading_Letter_Report"
         android:text="A"
-        android:textSize="@dimen/abc_text_size_large_material"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/txt_Beschreibung"
+
         android:gravity="center"
         android:clickable="false"
         android:textColor="#ffffff"
-        android:maxLength="1" />
+        android:maxLength="1"
+
+        android:layout_gravity="center"
+        android:textSize="@dimen/abc_text_size_headline_material"
+        android:background="@drawable/sh_main_list_button_shape"
+        android:textStyle="normal" />
+    </LinearLayout>
 
 
 </RelativeLayout>

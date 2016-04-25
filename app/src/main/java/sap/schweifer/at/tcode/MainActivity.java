@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private Cursor cursorApplication;
+
     private int anzahlDatensaetze = 0;
 
     //  Datenbank initialisieren
@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity
     //private String selApplication;
 
     //  Adapter initialisieren
-    public SimpleCursorAdapter mainItemAdapter = null;
+//    public SimpleCursorAdapter mainItemAdapter = null;
+    public TcodeCorsorAdapter mainItemAdapter = null;
     //  Datenbank initialisieren
 
 
@@ -158,6 +159,7 @@ public class MainActivity extends AppCompatActivity
 
     public void loadView() {
 
+        Cursor cursorApplication;
         cursorApplication = database.query(ActiveApplication.getAnwendung(), ActiveApplication.getSerchProcess());
 
         if (cursorApplication != null) {
@@ -174,26 +176,28 @@ public class MainActivity extends AppCompatActivity
             txtApplicationHead.setText(ActiveApplication.getAnwendung());
 
 
-            mainItemAdapter = new SimpleCursorAdapter(this,
-                    R.layout.rel_datenbankeintrag,
-                    cursorApplication,
-                    new String[]{
-                            TcTables.TX_REPORT,
-                            TcTables.TX_REPORT,
-                            TcTables.TX_BEZ,
-                            TcTables.TX_BES,
-                            TcTables.TX_MOD,
-                            TcTables.TX_PROC},
-                    new int[]
-                            {R.id.txt_leading_letter_procedure,
-                                    R.id.txt_Code,
-                                    R.id.txt_Bezeichnung,
-                                    R.id.txt_Beschreibung,
-                                    R.id.txt_Modul,
-                                    R.id.txt_Prozess},
-                    CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
+            mainItemAdapter = new TcodeCorsorAdapter(this, cursorApplication, android.support.v4.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
-            );
+//            mainItemAdapter = new SimpleCursorAdapter(this,
+//                    R.layout.rel_datenbankeintrag,
+//                    cursorApplication,
+//                    new String[]{
+//                            TcTables.TX_REPORT,
+//                            TcTables.TX_REPORT,
+//                            TcTables.TX_BEZ,
+//                            TcTables.TX_BES,
+//                            TcTables.TX_MOD,
+//                            TcTables.TX_PROC},
+//                    new int[]
+//                            {R.id.txt_leading_Letter_Report,
+//                                    R.id.txt_Report,
+//                                    R.id.txt_Bezeichnung,
+//                                    R.id.txt_Beschreibung,
+//                                    R.id.txt_Modul,
+//                                    R.id.txt_Prozess},
+//                    CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
+//
+//            );
 
 
             list_Datenbankeintraege = (ListView) findViewById(R.id.lv_Datenbankeinträge);
@@ -201,7 +205,7 @@ public class MainActivity extends AppCompatActivity
 
             list_Datenbankeintraege.setAdapter(mainItemAdapter);
 
-            // TODO: 24.01.2016 onItemclicklistener auslagern
+
             list_Datenbankeintraege.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -259,13 +263,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onQueryTextSubmit(String query) {
                 ActiveApplication.setSerchProcess(query);
-                Log.d(TAG, "onQueryTextSubmit: " + query);
-                Log.d(TAG, "onQueryTextSubmit: " + ActiveApplication.getSerchProcess());
-
+                Log.d(TAG, "onQueryTextSubmit: " + list_Datenbankeintraege);
                 if (mainItemAdapter == null) {
                     list_Datenbankeintraege.removeAllViews();
+                    Log.d(TAG, "onQueryTextSubmit: " + list_Datenbankeintraege);
                     loadView();
                 } else {
+                    Log.d(TAG, "onQueryTextSubmit: Adapter ungleich null");
                     loadView();
                 }
                 return false;
@@ -279,8 +283,10 @@ public class MainActivity extends AppCompatActivity
 
                 if (mainItemAdapter == null) {
                     list_Datenbankeintraege.removeAllViews();
+                    Log.d(TAG, "onQueryTextSubmit: " + list_Datenbankeintraege);
                     loadView();
                 } else {
+                    Log.d(TAG, "onQueryTextSubmit: Adapter ungleich null");
                     loadView();
                 }
                 return false;
