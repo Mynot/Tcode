@@ -176,7 +176,9 @@ public class MainActivity extends AppCompatActivity
             txtApplicationHead.setText(ActiveApplication.getAnwendung());
 
 
-            mainItemAdapter = new TcodeCorsorAdapter(this, cursorApplication, android.support.v4.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+            mainItemAdapter = new TcodeCorsorAdapter(this,
+                    cursorApplication,
+                    android.support.v4.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
 //            mainItemAdapter = new SimpleCursorAdapter(this,
 //                    R.layout.rel_datenbankeintrag,
@@ -256,6 +258,7 @@ public class MainActivity extends AppCompatActivity
 
 
         MenuItem searchItem = menu.findItem(R.id.search_button);
+
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
 

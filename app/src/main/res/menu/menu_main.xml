@@ -7,7 +7,7 @@
         android:title="@string/txt_Search"
         android:icon="@drawable/ic_search_white_24dp"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
