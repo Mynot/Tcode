@@ -40,4 +40,6 @@
     <string name="txt_Search">Suche</string>
     <string name="txt_Dataset_already_exists">Datensatz bereits vorhanden!</string>
     <string name="txt_Dataset_inserted">Datensatz eingefügt!</string>
+    <string name="action_proc">Prozesse bearbeiten</string>
+    <string name="action_modul">Module bearbeiten</string>
 </resources>

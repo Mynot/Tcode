@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -28,6 +29,7 @@ import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -258,9 +260,13 @@ public class MainActivity extends AppCompatActivity
 
 
         MenuItem searchItem = menu.findItem(R.id.search_button);
+        MenuItem menuchangeMod = menu.findItem(R.id.action_modul);
+        MenuItem menuchangeProc = menu.findItem(R.id.action_processes);
 
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
+
+//** Menu Search View
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -296,6 +302,17 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+//** Settinga Listener
+        menuchangeMod.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+
+                return false;
+            }
+        });
+
+
         this.menu = menu;
 
         return true;
@@ -320,6 +337,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
 
         // ActiveApplication.setAnwendung("SAP");
 
@@ -337,11 +357,37 @@ public class MainActivity extends AppCompatActivity
 //                Uri.parse("android-app://sap.schweifer.at.tcode/http/host/path")
 //        );
 //        AppIndex.AppIndexApi.start(client, viewAction);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://sap.schweifer.at.tcode/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://sap.schweifer.at.tcode/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
 
         database.close();
 
@@ -359,6 +405,9 @@ public class MainActivity extends AppCompatActivity
 //        );
 //        AppIndex.AppIndexApi.end(client, viewAction);
 //        client.disconnect();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.disconnect();
     }
 
 
@@ -411,7 +460,7 @@ public class MainActivity extends AppCompatActivity
 
                     ActiveApplication.setAnwendung(selAppl);
                     Log.d(TAG, "Anwendung ausgewählt: " + selAppl);
-                    loadView();
+//                    loadView();
 
                     MainActivity.this.finish();
 
